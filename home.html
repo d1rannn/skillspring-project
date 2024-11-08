@@ -6,9 +6,7 @@
    <title>Home</title>
 
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
-   
    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -17,24 +15,10 @@
    <div class="container d-flex justify-content-between align-items-center">
       <a href="home.html" class="text-white text-decoration-none fs-3">SkillSpring</a>
 
-      <form id="searchForm" action="search.html" method="post" class="d-flex">
-         <input type="text" name="search_box" id="searchBox" required class="form-control me-2" placeholder="Search courses..." maxlength="100">
+      <form action="search.html" method="post" class="d-flex">
+         <input type="text" name="search_box" required class="form-control me-2" placeholder="Search courses..." maxlength="100">
          <button type="submit" class="btn btn-light"><i class="fas fa-search"></i></button>
-     </form>
-     
-     <script>
-         document.getElementById('searchForm').addEventListener('submit', function(event) {
-             var searchValue = document.getElementById('searchBox').value.trim().toLowerCase();
-             
-             // Check if the input matches any of the predefined course titles
-             if (searchValue === 'complete html tutorial' || 
-                 searchValue === 'complete css tutorial' || 
-                 searchValue === 'complete js tutorial' || searchValue === 'courses') {
-                 event.preventDefault(); // Prevent the default form submission
-                 window.location.href = 'courses.html'; // Redirect to courses.html
-             }
-         });
-     </script>
+      </form>
 
       <div class="d-flex align-items-center">
          <img src="images/pic-1.jpg" class="rounded-circle" width="40" height="40" alt="Profile Picture">
@@ -43,6 +27,8 @@
             <small>Student</small>
          </div>
          <a href="profile.html" class="btn btn-light ms-3">View Profile</a>
+         <!-- Button to toggle theme -->
+         <button onclick="toggleTheme()" class="btn btn-light ms-3">Toggle Theme</button>
       </div>
    </div>
 </header>
@@ -141,7 +127,6 @@
 <section class="container my-5">
    <h2 class="text-center mb-5">What Our Students Say</h2>
    <div class="row">
-
       <div class="col-md-4">
          <div class="card mb-4">
             <div class="card-body">
@@ -196,7 +181,7 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
+                        <i class="fas fa-star"></i>
                         <i class="fas fa-star-half-alt"></i>
                      </div>
                   </div>
@@ -204,9 +189,33 @@
             </div>
          </div>
       </div>
-
    </div>
 </section>
+
+<!-- JavaScript для переключения тем -->
+<script>
+   function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      document.querySelectorAll('header, .navbar, .card, section').forEach(element => {
+         element.classList.toggle('dark-mode');
+      });
+
+      if (document.body.classList.contains('dark-mode')) {
+         localStorage.setItem('theme', 'dark');
+      } else {
+         localStorage.setItem('theme', 'light');
+      }
+   }
+
+   window.onload = function() {
+      if (localStorage.getItem('theme') === 'dark') {
+         document.body.classList.add('dark-mode');
+         document.querySelectorAll('header, .navbar, .card, section').forEach(element => {
+            element.classList.add('dark-mode');
+         });
+      }
+   };
+</script>
 
 </body>
 </html>
